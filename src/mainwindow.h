@@ -21,7 +21,7 @@ Copyright (C) 2011, Parsian Robotic Center (eew.aut.ac.ir/~parsian/grsim)
 
 #include <QMainWindow>
 //#include <QWorkspace>
-#include <qmdiarea>
+#include <QMdiArea>
 #include <QLabel>
 
 #include "glwidget.h"
