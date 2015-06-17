@@ -31,6 +31,7 @@ Copyright (C) 2011, Parsian Robotic Center (eew.aut.ac.ir/~parsian/grsim)
 #include <QApplication>
 #include <QDir>
 #include <QClipboard>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "logger.h"
@@ -59,8 +60,10 @@ MainWindow::MainWindow(QWidget *parent)
     initLogger((void*)printer);
 
     /* Init Workspace */
-    workspace = new QWorkspace(this);
-    setCentralWidget(workspace);    
+    //workspace = new QWorkspace(this);
+	mdiArea = new QMdiArea(this);
+    //setCentralWidget(workspace);    
+	setCentralWidget(mdiArea);
 
     /* Widgets */
 
@@ -164,8 +167,9 @@ MainWindow::MainWindow(QWidget *parent)
     addDockWidget(Qt::LeftDockWidgetArea,dockconfig);
     addDockWidget(Qt::BottomDockWidgetArea, statusWidget);
     addDockWidget(Qt::LeftDockWidgetArea, robotwidget);
-    workspace->addWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);    
-    glwidget->setWindowState(Qt::WindowMaximized);
+    //workspace->addWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);    
+	mdiArea->addSubWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
+	glwidget->setWindowState(Qt::WindowMaximized);
 
     timer = new QTimer(this);
     timer->setInterval(getInterval());
@@ -405,8 +409,9 @@ void MainWindow::toggleFullScreen(bool a)
     }
     else {
         view->close();        
-        workspace->addWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
-        glwidget->show();
+        //workspace->addWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
+		mdiArea->addSubWindow(glwidget, Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
+		glwidget->show();
         glwidget->resize(lastSize);
         glwidget->fullScreen = false;
         fullScreenAct->setChecked(false);

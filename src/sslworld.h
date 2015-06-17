@@ -56,6 +56,7 @@ class SSLWorld : public QObject
 private:
     QGLWidget* m_parent;
     int framenum;
+	int m_nStrPos;
     dReal last_dt;
     QList<SendingPacket*> sendQueue;
     char packet[200];
@@ -68,7 +69,8 @@ public:
     void glinit();
     void step(dReal dt=-1);
     SSL_WrapperPacket* generatePacket();
-    void sendVisionBuffer();
+	void sendVisionBuffer(); 
+	int GetStrToInt(const char str[]);//’Ç‰Á
     ConfigWidget* cfg;
     CGraphics* g;
     PWorld* p;
